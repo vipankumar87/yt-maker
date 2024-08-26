@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  video-processor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: video-processing-env
+    volumes:
+      - ./videos:/app/videos       # Mounts the local videos directory to the container
+      - ./shorts:/app/shorts       # Mounts the local shorts directory to the container
+    environment:
+      - VIDEO_DOWNLOAD_PATH=/app/videos
+      - SHORT_VIDEO_PATH=/app/shorts
+    command: python your_script.py # Replace 'your_script.py' with the name of your script
+    restart: unless-stopped        # Automatically restart the container unless it is stopped manually
